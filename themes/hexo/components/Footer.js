@@ -7,22 +7,54 @@ const Footer = ({ title }) => {
   const copyrightDate = parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
 
   return (
-    <footer
-      className='relative z-10 dark:bg-black flex-shrink-0 bg-hexo-light-gray justify-center text-center m-auto w-full leading-6  text-gray-600 dark:text-gray-100 text-sm p-6'
-    >
-      {/* <DarkModeButton/> */}
+<footer className='relative z-10 dark:bg-black flex-shrink-0 bg-hexo-light-gray justify-center text-center m-auto w-full leading-6 text-gray-600 dark:text-gray-100 text-sm p-6'>
+  {/* 其他内容 */}
+  <i className='fas fa-copyright' /> {`${copyrightDate}`} <span><i className='mx-1 animate-pulse fas fa-heart'/> <a href={siteConfig('LINK')} className='font-bold  dark:text-gray-300 '>{siteConfig('AUTHOR')}</a>.<br/>
 
-      <i className='fas fa-copyright' /> {`${copyrightDate}`} <span><i className='mx-1 animate-pulse fas fa-heart'/> <a href={siteConfig('LINK')} className='font-bold  dark:text-gray-300 '>{siteConfig('AUTHOR')}</a>.<br/>
+  {siteConfig('BEI_AN') && <><i className='fas fa-shield-alt' /> <a href='https://beian.miit.gov.cn/' className='mr-2'>{siteConfig('BEI_AN')}</a><br/></>}
 
-      {siteConfig('BEI_AN') && <><i className='fas fa-shield-alt' /> <a href='https://beian.miit.gov.cn/' className='mr-2'>{siteConfig('BEI_AN')}</a><br/></>}
+  <span className='hidden busuanzi_container_site_pv'><i className='fas fa-eye'/><span className='px-1 busuanzi_value_site_pv'> </span>  </span>
+  <span className='pl-2 hidden busuanzi_container_site_uv'><i className='fas fa-users'/> <span className='px-1 busuanzi_value_site_uv'> </span> </span>
+  <p className='font-bold pt-2 text-light-500 dark:text-gray-500'>Powered by <a href='https://github.com/tangly1024/NotionNext' className='font-bold dark:text-gray-300'>NotionNext {siteConfig('VERSION')}</a></p>
 
-      <span className='hidden busuanzi_container_site_pv'>
-            <i className='fas fa-eye'/><span className='px-1 busuanzi_value_site_pv'> </span>  </span>
-      <span className='pl-2 hidden busuanzi_container_site_uv'>
-        <i className='fas fa-users'/> <span className='px-1 busuanzi_value_site_uv'> </span> </span>
-        <p className='font-bold pt-2 text-light-500 dark:text-gray-500'>Powered by <a href='https://github.com/tangly1024/NotionNext' className='font-bold dark:text-gray-300'>NotionNext {siteConfig('VERSION')}</a></p></span><br/>
+  <!-- 添加运行时间显示 -->
+  <div id="momk"></div>
 
-        </footer>
+  <!-- JavaScript脚本 -->
+  <script type="text/javascript">
+    function NewDate(str) {
+      str = str.split('-');
+      var date = new Date();
+      date.setUTCFullYear(str[0], str[1] - 1, str[2]);
+      date.setUTCHours(0, 0, 0, 0);
+      return date;
+    }
+    function momxc() {
+      var birthDay = NewDate("2024-2-1"); /*建站日期*/
+      var today = new Date();
+      var timeold = today.getTime() - birthDay.getTime();
+      var sectimeold = timeold / 1000;
+      var secondsold = Math.floor(sectimeold);
+      var msPerDay = 24 * 60 * 60 * 1000;
+      var e_daysold = timeold / msPerDay;
+      var daysold = Math.floor(e_daysold);
+      var e_hrsold = (daysold - e_daysold) * -24;
+      var hrsold = Math.floor(e_hrsold);
+      var e_minsold = (hrsold - e_hrsold) * -60;
+      var minsold = Math.floor(e_minsold);
+      var seconds = Math.floor((minsold - e_minsold) * -60).toString();
+      document.getElementById("momk").innerHTML = "本站已安全运行" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+      setTimeout(momxc, 1000);
+    }
+    momxc();
+  </script>
+
+  <!-- CSS样式 -->
+  <style>
+    #momk{animation:change 10s infinite;font-weight:800; }
+    @keyframes change{0%{color:#5cb85c;}25%{color:#556bd8;}50%{color:#e40707;}75%{color:#66e616;}100% {color:#67bd31;}}
+  </style>
+</footer>
   )
 }
 
