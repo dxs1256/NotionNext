@@ -12,7 +12,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://orrz.alwaysdata.net/ip.php');
+        const response = await fetch('http://wp.orrz.nhely.hu/ip.php');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
