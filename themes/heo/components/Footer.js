@@ -3,40 +3,51 @@ import CopyRightDate from '@/components/CopyRightDate'
 import PoweredBy from '@/components/PoweredBy'
 import { siteConfig } from '@/lib/config'
 import SocialButton from './SocialButton'
+import { useState, useEffect } from 'react';
+
 
 /**
  * 页脚
  * @returns
  */
 const Footer = () => {
-  // 用于获取服务器和用户的 IP 信息
-  function fetchData() {
-    fetch('https://orrz.alwaysdata.net/ip.php')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('cf-country').textContent = data.cf_node_country;
-        document.getElementById('cf-city').textContent = data.cf_node_city;
-        document.getElementById('cf-ip').textContent = data.cf_node;
-        document.getElementById('cf-flag').src = `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.cf_node_country_code}.svg`;
+  const [serverLocation, setServerLocation] = useState({ country: '', city: '', ip: '', flag: '' });
+  const [userLocation, setUserLocation] = useState({ country: '', city: '', ip: '', flag: '' });
 
-        document.getElementById('user-country').textContent = data.user_country;
-        document.getElementById('user-city').textContent = data.user_city;
-        document.getElementById('user-ip').textContent = data.user_ip;
-        document.getElementById('user-flag').src = `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.user_country_code}.svg`;
-      });
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://orrz.alwaysdata.net/ip.php');
+        const data = await response.json();
 
-  // 组件加载时执行数据抓取
-  React.useEffect(() => {
+        setServerLocation({
+          country: data.cf_node_country,
+          city: data.cf_node_city,
+          ip: data.cf_node,
+          flag: `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.cf_node_country_code}.svg`,
+        });
+
+        setUserLocation({
+          country: data.user_country,
+          city: data.user_city,
+          ip: data.user_ip,
+          flag: `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.user_country_code}.svg`,
+        });
+      } catch (error) {
+        console.error("Error fetching location data:", error);
+      }
+    };
+
     fetchData();
   }, []);
 
+
   return (
-    <footer className='relative flex-shrink-0 bg-white dark:bg-[#1a191d] justify-center text-center m-auto w-full leading-6 text-gray-600 dark:text-gray-100 text-sm'>
-      {/* 颜色过渡区 */}
+    <footer className='relative flex-shrink-0 bg-white dark:bg-[#1a191d] justify-center text-center m-auto w-full leading-6  text-gray-600 dark:text-gray-100 text-sm'>
+      {/* 颜色过度区 */}
       <div
         id='color-transition'
-        className='h-32 bg-gradient-to-b from-[#f7f9fe] to-white dark:bg-[#1a191d] dark:from-inherit dark:to-inherit'
+        className='h-32 bg-gradient-to-b from-[#f7f9fe] to-white  dark:bg-[#1a191d] dark:from-inherit dark:to-inherit'
       />
 
       {/* 社交按钮 */}
@@ -49,14 +60,13 @@ const Footer = () => {
       {/* 底部页面信息 */}
       <div
         id='footer-bottom'
-        className='w-full h-20 flex flex-col p-3 lg:flex-row justify-between px-6 items-center bg-[#f1f3f7] dark:bg-[#21232A] border-t dark:border-t-[#3D3D3F]'
-      >
+        className='w-full h-20 flex flex-col p-3 lg:flex-row justify-center items-center bg-[#f1f3f7] dark:bg-[#21232A] border-t dark:border-t-[#3D3D3F]'> {/* 修改了 justify-between 为 justify-center */}
         <div id='footer-bottom-left'>
           <PoweredBy />
           <CopyRightDate />
         </div>
 
-        <div id='footer-bottom-right'>
+        <div id='footer-bottom-right' className='text-center'> {/* 添加 text-center */}
           {siteConfig('BEI_AN') && (
             <>
               <i className='fas fa-shield-alt' />{' '}
@@ -75,29 +85,19 @@ const Footer = () => {
             <i className='fas fa-users' />{' '}
             <span className='px-1 busuanzi_value_site_uv'> </span>{' '}
           </span>
-        </div>
-      </div>
 
-      {/* 服务器和用户信息（居中显示） */}
-      <div className='w-full py-4 bg-[#f1f3f7] dark:bg-[#21232A]'>
-        <div className='text-center'>
-          <div id="server-info" className="mb-2">
-            <span>现在为您提供服务的服务器是 <span id="cf-country"></span> 
-              <img id="cf-flag" src="" alt="国旗" style={{ width: '16px', height: '16px' }} />
-              城市: <span id="cf-city"></span>，IP地址: <span id="cf-ip"></span>
-            </span>
-          </div>
-          
-          <div id="user-info">
-            <span>您来自 <span id="user-country"></span> 
-              <img id="user-flag" src="" alt="国旗" style={{ width: '16px', height: '16px' }} />
-              城市: <span id="user-city"></span>，IP地址: <span id="user-ip"></span>
-            </span>
+          <div className='flex flex-col md:flex-row justify-center items-center'> {/* 使用 flexbox 进行居中 */}
+            <div>
+              服务器IP: {serverLocation.ip}
+            </div>
+            <div className='ml-4 md:ml-8'> {/* 添加间距 */}
+              用户IP: {userLocation.ip}
+            </div>
           </div>
         </div>
       </div>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
