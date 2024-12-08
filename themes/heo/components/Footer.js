@@ -1,83 +1,62 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服务器与用户信息</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
+import { BeiAnGongAn } from '@/components/BeiAnGongAn'
+import CopyRightDate from '@/components/CopyRightDate'
+import PoweredBy from '@/components/PoweredBy'
+import { siteConfig } from '@/lib/config'
+import SocialButton from './SocialButton'
+/**
+ * 页脚
+ * @returns
+ */
+const Footer = () => {
+  return (
+    <footer className='relative flex-shrink-0 bg-white dark:bg-[#1a191d] justify-center text-center m-auto w-full leading-6  text-gray-600 dark:text-gray-100 text-sm'>
+      {/* 颜色过度区 */}
+      <div
+        id='color-transition'
+        className='h-32 bg-gradient-to-b from-[#f7f9fe] to-white  dark:bg-[#1a191d] dark:from-inherit dark:to-inherit'
+      />
 
-        footer {
-            background-color: #f1f3f7;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #ddd;
-        }
+      {/* 社交按钮 */}
+      <div className='w-full h-24'>
+        <SocialButton />
+      </div>
 
-        #server-info, #user-info {
-            margin: 10px 0;
-            font-size: 14px;
-            color: #333;
-        }
+      <br />
 
-        #server-info span, #user-info span {
-            font-weight: bold;
-        }
+      {/* 底部页面信息 */}
+      <div
+        id='footer-bottom'
+        className='w-full h-20 flex flex-col p-3 lg:flex-row justify-between px-6 items-center bg-[#f1f3f7] dark:bg-[#21232A] border-t dark:border-t-[#3D3D3F]'>
+        <div id='footer-bottom-left'>
+          <PoweredBy />
+          <CopyRightDate />
+        </div>
 
-        #server-info img, #user-info img {
-            vertical-align: middle;
-            margin-left: 5px;
-        }
+        <div id='footer-bottom-right'>
+          {siteConfig('BEI_AN') && (
+            <>
+              <i className='fas fa-shield-alt' />{' '}
+              <a href='https://beian.miit.gov.cn/' className='mr-2'>
+                {siteConfig('BEI_AN')}
+              </a>
+            </>
+          )}
+          <BeiAnGongAn />
 
-        /* 居中显示页脚 */
-        footer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
-</head>
-<body>
+          <span className='hidden busuanzi_container_site_pv'>
+            <i className='fas fa-eye' />
+            <span className='px-1 busuanzi_value_site_pv'> </span>{' '}
+          </span>
+          <span className='pl-2 hidden busuanzi_container_site_uv'>
+            <i className='fas fa-users' />{' '}
+            <span className='px-1 busuanzi_value_site_uv'> </span>{' '}
+          </span>
 
-<!-- 页脚 -->
-<footer>
-    <div id="server-info">
-        现在为您提供服务的服务器是 <span id="cf-country"></span> 
-        <img id="cf-flag" src="" alt="国旗" style="width: 16px; height: 16px;"> 
-        城市: <span id="cf-city"></span>，IP地址: <span id="cf-ip"></span>
-    </div>
-    <div id="user-info">
-        您来自 <span id="user-country"></span> 
-        <img id="user-flag" src="" alt="国旗" style="width: 16px; height: 16px;">，
-        城市: <span id="user-city"></span>，IP地址: <span id="user-ip"></span>
-    </div>
-</footer>
+          {/* <h1 className='text-xs pt-4 text-light-400 dark:text-gray-400'>{title} {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}</h1> */}
+        </div>
+      </div>
+    </footer>
+  )
+}
 
-<script type="text/javascript">
-    function fetchData() {
-        fetch('这里换成你后端php的位置')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('cf-country').textContent = data.cf_node_country;
-                document.getElementById('cf-city').textContent = data.cf_node_city;
-                document.getElementById('cf-ip').textContent = data.cf_node;
-                document.getElementById('cf-flag').src = `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.cf_node_country_code}.svg`;
-
-                document.getElementById('user-country').textContent = data.user_country;
-                document.getElementById('user-city').textContent = data.user_city;
-                document.getElementById('user-ip').textContent = data.user_ip;
-                document.getElementById('user-flag').src = `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.user_country_code}.svg`;
-            });
-    }
-
-    fetchData();
-</script>
-
-</body>
-</html>
+export default Footer
