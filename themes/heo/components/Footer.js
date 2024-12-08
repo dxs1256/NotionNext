@@ -12,7 +12,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://joeyblog.net/api/t.php');
+        const response = await fetch('http://f1062921.xsph.ru/ip.php');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
