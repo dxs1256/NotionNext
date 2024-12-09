@@ -99,7 +99,7 @@ const Footer = () => {
             </div>
 
             <div id='user-info' className='mt-2 text-xs md:text-sm'>
-              <span>您的所在地：</span>
+              <span>您来自：</span>
               <span>{ipInfo.user.country}</span>
               <img src={ipInfo.user.flag} alt="国旗" className="w-4 h-4" />
               <span>城市：{ipInfo.user.city}</span>
