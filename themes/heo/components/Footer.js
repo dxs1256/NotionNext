@@ -3,53 +3,17 @@ import CopyRightDate from '@/components/CopyRightDate'
 import PoweredBy from '@/components/PoweredBy'
 import { siteConfig } from '@/lib/config'
 import SocialButton from './SocialButton'
-import { useState, useEffect } from 'react'
-
 /**
  * 页脚
  * @returns
  */
 const Footer = () => {
-  const [ipInfo, setIpInfo] = useState({
-    server: { country: '', city: '', ip: '', flag: '' },
-    user: { country: '', city: '', ip: '', flag: '' },
-  })
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://orrz.alwaysdata.net/ip.php')  // 替换为实际的后端 PHP 地址
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const data = await response.json()
-        setIpInfo({
-          server: {
-            country: data.cf_node_country || '未知',
-            city: data.cf_node_city || '未知',
-            ip: data.cf_node || '未知',
-            flag: `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.cf_node_country_code}.svg`,
-          },
-          user: {
-            country: data.user_country || '未知',
-            city: data.user_city || '未知',
-            ip: data.user_ip || '未知',
-            flag: `https://raw.githubusercontent.com/hampusborgos/country-flags/main/svg/${data.user_country_code}.svg`,
-          },
-        })
-      } catch (error) {
-        console.error('Error fetching IP info:', error)
-      }
-    }
-    fetchData()
-  }, [])
-
   return (
-    <footer className='relative flex-shrink-0 bg-white dark:bg-[#1a191d] justify-center text-center m-auto w-full leading-6 text-gray-600 dark:text-gray-100 text-sm'>
+    <footer className='relative flex-shrink-0 bg-white dark:bg-[#1a191d] justify-center text-center m-auto w-full leading-6  text-gray-600 dark:text-gray-100 text-sm'>
       {/* 颜色过度区 */}
       <div
         id='color-transition'
-        className='h-32 bg-gradient-to-b from-[#f7f9fe] to-white dark:bg-[#1a191d] dark:from-inherit dark:to-inherit'
+        className='h-32 bg-gradient-to-b from-[#f7f9fe] to-white  dark:bg-[#1a191d] dark:from-inherit dark:to-inherit'
       />
 
       {/* 社交按钮 */}
@@ -79,33 +43,16 @@ const Footer = () => {
           )}
           <BeiAnGongAn />
 
-          <span className='hidden busuanzi_container_site_pv'>
+          <span className='busuanzi_container_site_pv'>
             <i className='fas fa-eye' />
             <span className='px-1 busuanzi_value_site_pv'> </span>{' '}
           </span>
-          <span className='pl-2 hidden busuanzi_container_site_uv'>
+          <span className='pl-2 busuanzi_container_site_uv'>
             <i className='fas fa-users' />{' '}
             <span className='px-1 busuanzi_value_site_uv'> </span>{' '}
           </span>
 
-          {/* 显示服务器和用户信息 */}
-          <div className='mt-4'>
-            <div id='server-info' className='text-xs md:text-sm'>
-              <span>服务器所在地：</span>
-              <span>{ipInfo.server.country}</span>
-              <img src={ipInfo.server.flag} alt="国旗" className="w-4 h-4" />
-              <span>城市：{ipInfo.server.city}</span>
-              <span>IP：{ipInfo.server.ip}</span>
-            </div>
-
-            <div id='user-info' className='mt-2 text-xs md:text-sm'>
-              <span>您来自：</span>
-              <span>{ipInfo.user.country}</span>
-              <img src={ipInfo.user.flag} alt="国旗" className="w-4 h-4" />
-              <span>城市：{ipInfo.user.city}</span>
-              <span>IP：{ipInfo.user.ip}</span>
-            </div>
-          </div>
+          {/* <h1 className='text-xs pt-4 text-light-400 dark:text-gray-400'>{title} {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}</h1> */}
         </div>
       </div>
     </footer>
