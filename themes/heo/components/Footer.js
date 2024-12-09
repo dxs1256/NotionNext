@@ -18,7 +18,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://example.com/path/to/your/backend.php')  // 替换为实际的后端 PHP 地址
+        const response = await fetch('https://orrz.alwaysdata.net/ip.php')  // 替换为实际的后端 PHP 地址
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
