@@ -32,7 +32,7 @@ You can set up your personal website in just a few minutes. Here is the link to 
 
 <hr/>
 
-A static blog system built with NextJS and Notion API, deployed on Vercel. Designed for Notion and all creators.
+A static blog system built with NextJS and Notion API, deployed on Vercel. Designed for Notion and all creators
 
 
 ## Preview
