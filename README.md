@@ -1,7 +1,7 @@
 # NotionNext 精简版介绍（一分钟看完）
 
 **项目简介**  
-一个用 **Next.js + Notion API** 搭建的静态博客系统，3 分钟零代码把你的 Notion 页面变成完整个人博客，部署到 Vercel 免费又快
+一个用 **Next.js + Notion API** 搭建的静态博客系统，3 分钟零代码把你的 Notion 页面变成完整个人博客，部署到 Vercel 免费又快。
 
 **核心亮点**  
 - 完全免费开源（MIT 协议）  
