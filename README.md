@@ -23,6 +23,6 @@ https://preview.tangly1024.com
 https://docs.tangly1024.com/
 
 **原项目致谢**  
-基于 Craigary 的 Nobelium 项目汉化、优化并持续维护，目前国内最活跃的 Notion 博客方案。
+基于 Craigary 的 Nobelium 项目汉化、优化并持续维护，目前国内最活跃的 Notion 博客方案
 
 想要最简单、最好看的 Notion 博客？直接点 Fork 就行啦～
