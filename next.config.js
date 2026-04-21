@@ -329,7 +329,10 @@ const nextConfig = {
     // cpus: 1,
     scrollRestoration: true,
     // 性能优化实验性功能
-    optimizePackageImports: ['@heroicons/react', 'lodash']
+    optimizePackageImports: ['@heroicons/react', 'lodash'],
+    // 减少并发 Worker 数量，避免触发 Notion API 限流
+    workerThreads: false,
+    cpus: 1
   },
   exportPathMap: function (
     defaultPathMap,
